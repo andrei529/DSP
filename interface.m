@@ -71,6 +71,16 @@ function playButton_Callback(~, ~, handles)
     
     [s, fs] = audioread(f);
     
+    [~,b] = size(s);
+    
+    if b == 1
+        plot(handles.AxisInLeft,s);
+        plot(handles.AxisInRight,s);
+    else
+        plot(handles.AxisInLeft,s(:,1));
+        plot(handles.AxisInRight,s(:,2));
+    end
+    
     echoButton = get(handles.echoButton, 'Value');
     echoSlider = get(handles.echoSlider, 'Value');
     echo = echoButton*echoSlider;
@@ -85,7 +95,16 @@ function playButton_Callback(~, ~, handles)
     
     alfa = str2double(get(handles.alfa, 'String'));
     
-    play(s, fs, alfa, echo, reverb, dist);
+    s = play(s, fs, alfa, echo, reverb, dist);
+    
+    if b == 1
+        plot(handles.AxisOutLeft,s);
+        plot(handles.AxisOutRight,s);
+    else
+        plot(handles.AxisOutLeft,s(:,1));
+        plot(handles.AxisOutRight,s(:,2));
+    end
+    
 
 function selectFile_Callback(~, ~, handles)
     [fileName path] = uigetfile('*.wav', 'Abrir Arquivo');

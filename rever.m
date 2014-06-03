@@ -1,13 +1,18 @@
 function out = rever(s, alfa, N)
 
-    tmp1 = echo(s, alfa, N);
-    tmp2 = echo(s, alfa, N);
-    tmp3 = echo(s, alfa, N);
-    tmp4 = echo(s, alfa, N);
-    out = tmp1 + tmp2 + tmp3 + tmp4;
-    out = allpass(out, alfa, N);
-    out = allpass(out, alfa, N);
-    out = out.*(1-alfa);
+    %tmp1 = echo(s, alfa, N);
+    %tmp2 = echo(s, alfa, N);
+    %tmp3 = echo(s, alfa, N);
+    %tmp4 = echo(s, alfa, N);
+    %out = tmp1 + tmp2 + tmp3 + tmp4;
+    %out = allpass(out, alfa, N);
+    %out = allpass(out, alfa, N);
+    %out = out.*(1-alfa);
+    
+    out = s;
+    for n = N+1:length(s)
+        out(n) = -alfa*s(n) + s(n-N) + alfa*out(n-N);
+    end
     
     return;
 end
