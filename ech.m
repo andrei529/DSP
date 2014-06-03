@@ -1,4 +1,4 @@
-function out = ech(s, fs, N)
+function out = ech(s, alfa, N)
     %left = s(:,1);
     %right = s(:,2);
 
@@ -8,8 +8,8 @@ function out = ech(s, fs, N)
     %ylabel('signal strength');
 
     out = s;
-    for n=N+1:length(s)
-        out(n) = out(n)+0.75*out(n-N);
+    for n = N+1:length(s)
+        out(n) = s(n) + alfa*s(n-N);
     end
     
     return;
